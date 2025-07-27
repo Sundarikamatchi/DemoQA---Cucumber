@@ -1,0 +1,33 @@
+package com.utils;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+public class ExcelReader {
+    public static String getCellData(String sheetName, int row, int col) throws IOException {
+    	String filePath = "src/test/resources/DemoFeature/DemoQA.xlsx";
+    	FileInputStream fis = new FileInputStream(filePath);
+    	
+  
+        Workbook excel = WorkbookFactory.create(fis);
+        Sheet sheet = excel.getSheet(sheetName);
+        Row rowObj = sheet.getRow(row);
+        if (rowObj == null) return ""; // If row doesn't exist
+
+        Cell cell = rowObj.getCell(col);
+        if (cell == null || cell.getCellType() == CellType.BLANK) return ""; // If cell doesn't exist
+
+        // Optional: Use DataFormatter for better handling
+        DataFormatter formatter = new DataFormatter();
+        return formatter.formatCellValue(cell); 
+    }
+
+}
