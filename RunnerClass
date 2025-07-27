@@ -1,0 +1,18 @@
+package com.tests;
+
+import org.testng.annotations.DataProvider;
+
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
+
+@CucumberOptions(features = "src/test/resources/DemoFeature/", glue = {"com.tests"}, monochrome = false, 
+//dryRun = true, 
+tags = "@Sanity", plugin = {"pretty","json:target/cucumber.json", "html:target/Destination", "html:src/test/reports/cucumber-reports.html"})
+public class RunnerClass extends AbstractTestNGCucumberTests {
+	@Override
+	@DataProvider(parallel = false)
+	public Object[][] scenarios() {
+		return super.scenarios();
+	}
+
+}
