@@ -1,0 +1,6 @@
+Feature: Fill DemoQA Practice form with excel data
+ @Sanity
+  Scenario: Fill and submit form
+    Given I launch the Demo Practice form page
+    When I fill the form with sample details
+    Then I submit the form
