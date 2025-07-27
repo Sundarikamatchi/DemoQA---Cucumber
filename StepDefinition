@@ -1,0 +1,82 @@
+package com.tests;
+
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+
+import com.pom.RegistrationPage;
+import com.utils.Base;
+import com.utils.ExcelReader;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class StepDefinition {
+	WebDriver driver;
+	RegistrationPage rp;
+	Base base = new Base();
+	String path = "src/test/resources/data/DemoQA.xlsx";
+	
+	@Given("I launch the Demo Practice form page")
+	public void openQA() {
+		driver = base.setup();
+		rp = new RegistrationPage(driver);
+	}
+	
+	@When("I fill the form with sample details")
+	public void Data() throws IOException, InterruptedException{
+		
+		
+		String fname = ExcelReader.getCellData( "Sheet1", 1, 0);
+	    String lname = ExcelReader.getCellData("Sheet1", 1,1);
+	    String email = ExcelReader.getCellData("Sheet1", 1,2);
+	    String number = ExcelReader.getCellData("Sheet1",  1,3);
+	    String Subject = ExcelReader.getCellData("Sheet1",1,4);
+	    String address = ExcelReader.getCellData("Sheet1", 1,5);
+	    String imagePath = ExcelReader.getCellData("Sheet1", 1,6);
+	    String state = ExcelReader.getCellData("Sheet1",  1,7);
+	    String city = ExcelReader.getCellData("Sheet1",1,8);
+	    
+
+	    rp.EnterFName(fname);
+	    Thread.sleep(2000);
+	    rp.EnterSName(lname);
+	    Thread.sleep(2000);
+	    rp.UEmail(email);
+	    Thread.sleep(2000);
+	    rp.Rbutton();
+	    Thread.sleep(2000);
+	    rp.MNo(number);
+	    Thread.sleep(2000);
+	    rp.EnterDOB();
+	    Thread.sleep(2000);
+	    rp.selectYear("2004");
+	    Thread.sleep(2000);
+	    rp.selectDay13();
+	    Thread.sleep(2000);
+	    rp.EnterSubject(Subject);
+	    Thread.sleep(2000);
+	    rp.Maths();
+	    Thread.sleep(2000);
+	    rp.ClickHobby();
+	    Thread.sleep(2000);
+	    rp.UploadImage(imagePath);
+	    Thread.sleep(2000);
+	    rp.Address(address);
+	    Thread.sleep(2000);
+	    rp.State(state);
+	    Thread.sleep(2000);
+	    rp.city(city);
+		
+	}
+	
+	@Then("I submit the form")
+	public void submit() throws InterruptedException {
+	    rp.ClickSubmit();
+	    Thread.sleep(2000);
+	    rp.ClickClose();
+		
+	}
+
+}
